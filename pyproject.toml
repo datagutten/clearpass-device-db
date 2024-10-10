@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "clearpass-auth"
+version = "0.1.0"
+description = "A database for ClearPass MAC authentication"
+authors = ["Anders Birkenes"]
+license = "GPL"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Django = "^5.1.2"
+django-allauth = "^65.0.2"
+django-macaddress = "^1.8.0"
+psycopg2-binary = "^2.9.9"
+
+
+[tool.poetry.group.dev.dependencies]
+python-dotenv = "^1.0.1"
+
+[tool.poetry.group.web.dependencies]
+gunicorn = "^23.0.0"
+django-allauth-ui = "^0.2"
+django-bootstrap5 = "^23.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
