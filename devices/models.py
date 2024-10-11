@@ -1,5 +1,6 @@
 from django.db import models
 from macaddress.fields import MACAddressField
+from django.utils.translation import gettext_lazy as _
 
 
 class Role(models.Model):
@@ -7,18 +8,18 @@ class Role(models.Model):
     description = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return self.role
+        return '%s (%s)' % (self.role, self.description)
 
 
 class Device(models.Model):
-    mac = MACAddressField(unique=True, integer=False)
-    description = models.CharField(max_length=255)
-    role = models.ForeignKey(Role, on_delete=models.PROTECT)
-    added_by = models.ForeignKey('auth.User', on_delete=models.PROTECT)
-    added = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-    expiry = models.DateTimeField(null=True, blank=True)
-    enabled = models.BooleanField(default=True)
+    mac = MACAddressField(_('MAC-adresse'), unique=True, integer=False)
+    description = models.CharField(_('Beskrivelse'), max_length=255)
+    role = models.ForeignKey(Role, on_delete=models.PROTECT, verbose_name=_('Rolle'))
+    added_by = models.ForeignKey('auth.User', on_delete=models.PROTECT, verbose_name=_('Lagt til av'))
+    added = models.DateTimeField(_('Lagt til'), auto_now_add=True)
+    modified = models.DateTimeField(_('Endret'), auto_now=True)
+    expiry = models.DateTimeField(_('Utgår'), null=True, blank=True)
+    enabled = models.BooleanField(_('Aktivert'), default=True)
 
     def __str__(self):
         return self.mac
