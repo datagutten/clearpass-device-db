@@ -18,7 +18,7 @@ class Device(models.Model):
     added_by = models.ForeignKey('auth.User', on_delete=models.PROTECT, verbose_name=_('Lagt til av'))
     added = models.DateTimeField(_('Lagt til'), auto_now_add=True)
     modified = models.DateTimeField(_('Endret'), auto_now=True)
-    expiry = models.DateTimeField(_('Utgår'), null=True, blank=True)
+    expiry = models.DateTimeField(_('Utløpsdato'), null=True, blank=True)
     enabled = models.BooleanField(_('Aktivert'), default=True)
 
     def __str__(self):
