@@ -22,7 +22,7 @@ class Device(models.Model):
     enabled = models.BooleanField(_('Aktivert'), default=True)
 
     def __str__(self):
-        return self.mac
+        return str(self.mac)
 
     def is_random(self):
         return str(self.mac)[1] in ['2', '6', 'a', 'e']
