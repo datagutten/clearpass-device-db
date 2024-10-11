@@ -23,3 +23,6 @@ class Device(models.Model):
 
     def __str__(self):
         return self.mac
+
+    def is_random(self):
+        return str(self.mac)[1] in ['2', '6', 'a', 'e']

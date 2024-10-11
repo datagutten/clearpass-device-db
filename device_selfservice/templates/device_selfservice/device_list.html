@@ -1,0 +1,42 @@
+{% extends 'device_selfservice/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>MAC</th>
+            <th>Beskrivelse</th>
+            <th>Rolle</th>
+            <th>Aktiv</th>
+            <th>Tilfeldig MAC</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for device in devices %}
+            <tr>
+                {% if perms.devices.change_device %}
+                    <td><a href="{% url 'device_change' mac=device.mac %}">{{ device.mac }}</a></td>
+                {% else %}
+                    <td>{{ device.mac }}</td>
+                {% endif %}
+                <td>{{ device.description }}</td>
+                <td>{{ device.role }}</td>
+                <td>{% if device.enabled %}
+                    <span class="text-success">Ja</span>
+                {% else %}
+                    <span class="text-danger">Nei</span>
+                {% endif %}
+                <td>{% if device.is_random %}
+                    <span class="text-danger">Ja</span>
+                {% else %}
+                    <span class="text-success">Nei</span>
+                {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+{% endblock %}
