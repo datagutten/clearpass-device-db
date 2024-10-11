@@ -19,6 +19,9 @@
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="{% url 'device_list' %}" class="nav-link px-2 text-white">Mine enheter</a></li>
+                    {% if perms.devices.view_device %}
+                        <li><a href="{% url 'device_list_all' %}" class="nav-link px-2 text-white">Alle enheter</a></li>
+                    {% endif %}
                     <li><a href="{% url 'device_add' %}" class="nav-link px-2 text-white">Ny enhet</a></li>
                 </ul>
 

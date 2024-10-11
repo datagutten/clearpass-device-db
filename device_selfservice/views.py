@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 from devices import models
 from device_selfservice import forms
+from django.utils.translation import gettext_lazy as _
 
 
 def index(request):
@@ -30,4 +31,10 @@ def device_form(request, mac=None):
 @azure_auth_required
 def device_list(request):
     devices = models.Device.objects.filter(added_by=request.user.id)
-    return render(request, 'device_selfservice/device_list.html', {'devices': devices})
+    return render(request, 'device_selfservice/device_list.html', {'devices': devices, 'title': _('Mine enheter')})
+
+
+@permission_required("devices.view_device")
+def device_list_all(request):
+    devices = models.Device.objects.all()
+    return render(request, 'device_selfservice/device_list.html', {'devices': devices, 'title': _('Alle enheter')})
