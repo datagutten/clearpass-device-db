@@ -1,3 +1,5 @@
+from azure_auth.decorators import azure_auth_required
+
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 from devices import models
@@ -8,6 +10,7 @@ def index(request):
     return render(request, 'device_selfservice/index.html')
 
 
+@permission_required("devices.add_device")
 def device_form(request, mac=None):
     if mac:
         device_obj = get_object_or_404(models.Device, mac=mac)
@@ -24,7 +27,7 @@ def device_form(request, mac=None):
     return render(request, 'device_selfservice/device_form.html', {'form': form})
 
 
-@permission_required("devices.change_device", login_url="/loginpage/")
+@azure_auth_required
 def device_list(request):
     devices = models.Device.objects.filter(added_by=request.user.id)
     return render(request, 'device_selfservice/device_list.html', {'devices': devices})

@@ -24,11 +24,11 @@
 
                 <div class="text-end">
                     {% if not user.is_authenticated %}
-                        <a href="{% url 'account_login' %}">
+                        <a href="{% url 'azure_auth:login' %}">
                             <button type="button" class="btn btn-outline-light me-2">Logg inn</button>
                         </a>
                     {% else %}
-                        <a href="{% url 'account_logout' %}">
+                        <a href="{% url 'azure_auth:logout' %}">
                             <button type="button" class="btn btn-outline-light me-2">Logg ut</button>
                         </a>
                     {% endif %}

@@ -28,8 +28,20 @@ DEBUG = bool(os.environ.get("DEBUG", default=0))
 
 # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
-CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS").split(" ")
+if os.getenv('DOMAIN').find('http') != 0:
+    base_url = "https://%s" % os.getenv('DOMAIN')
+else:
+    base_url = os.getenv('DOMAIN')
+
+if os.environ.get("DJANGO_ALLOWED_HOSTS"):
+    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+else:
+    ALLOWED_HOSTS = base_url
+
+if os.environ.get("CSRF_TRUSTED_ORIGINS"):
+    CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS").split(" ")
+else:
+    CSRF_TRUSTED_ORIGINS = base_url
 
 
 # Application definition
@@ -43,11 +55,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
-    "allauth.socialaccount.providers.microsoft",
     "django_bootstrap5",
+    "azure_auth",
 ]
 
 MIDDLEWARE = [
@@ -58,7 +67,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "allauth.account.middleware.AccountMiddleware",
+    "azure_auth.middleware.AzureMiddleware",
 ]
 
 ROOT_URLCONF = "clearpass_device_db.urls"
@@ -140,4 +149,18 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # MACADDRESS_DEFAULT_DIALECT = 'netaddr.mac_bare'
 MACADDRESS_DEFAULT_DIALECT = 'devices.mac_lower'
-# SITE_ID = 1
+
+AZURE_AUTH = {
+    "CLIENT_ID": os.getenv('MS_CLIENT_ID'),
+    "CLIENT_SECRET": os.getenv('MS_CLIENT_SECRET'),
+    "REDIRECT_URI": "%s/azure_auth/callback" % base_url,
+    "SCOPES": ["User.Read"],
+    "AUTHORITY": "https://login.microsoftonline.com/common",
+    "PUBLIC_URLS": ["index"],  # Optional, public views accessible by non-authenticated users
+    "USERNAME_ATTRIBUTE": "mail",   # The AAD attribute or ID token claim you want to use as the value for the user model `USERNAME_FIELD`
+    # "EXTRA_FIELDS": [], # Optional, extra AAD user profile attributes you want to make available in the user mapping function
+    # "USER_MAPPING_FN": "azure_auth.tests.misc.user_mapping_fn", # Optional, path to the function used to map the AAD to Django attributes
+}
+LOGIN_URL = "/azure_auth/login"
+LOGIN_REDIRECT_URL = "/"    # Or any other endpoint
+AUTHENTICATION_BACKENDS = ("azure_auth.backends.AzureBackend",)

@@ -20,5 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('', include('device_selfservice.urls')),
     path("admin/", admin.site.urls),
-    path('accounts/', include('allauth.urls')),
+    path("azure_auth/", include("azure_auth.urls")),
 ]
