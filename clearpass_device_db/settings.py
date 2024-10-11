@@ -36,12 +36,12 @@ else:
 if os.environ.get("DJANGO_ALLOWED_HOSTS"):
     ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 else:
-    ALLOWED_HOSTS = base_url
+    ALLOWED_HOSTS = [base_url]
 
 if os.environ.get("CSRF_TRUSTED_ORIGINS"):
     CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS").split(" ")
 else:
-    CSRF_TRUSTED_ORIGINS = base_url
+    CSRF_TRUSTED_ORIGINS = [base_url]
 
 
 # Application definition
