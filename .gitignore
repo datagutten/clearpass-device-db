@@ -1,8 +1,7 @@
 /data/
 /.env
-/.idea/inspectionProfiles/profiles_settings.xml
-/.idea/inspectionProfiles/Project_Default.xml
-/.idea/.gitignore
-/.idea/clearpass_device_db.iml
-/.idea/deployment.xml
-/.idea/vcs.xml
+.idea
+*.pfx
+*.crt
+*.key
+/poetry.lock

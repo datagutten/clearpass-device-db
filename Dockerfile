@@ -16,7 +16,7 @@ ENV PYTHONUNBUFFERED=1
 RUN pip install --upgrade pip poetry poetry-plugin-export
 
 COPY pyproject.toml .
-RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
+RUN poetry export -f requirements.txt --output requirements.txt --without-hashes --with web
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt
 
 #########

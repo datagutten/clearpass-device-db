@@ -3,3 +3,4 @@ poetry.lock
 .git
 data
 manage.sh
+nginx
