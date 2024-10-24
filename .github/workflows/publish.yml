@@ -33,7 +33,6 @@ jobs:
         id: push
         uses: docker/build-push-action@v6.5.0
         with:
-          context: switchinfo_docker
           push: true
           tags: datagutten/clearpass-device-db:latest
           labels: ${{ steps.meta.outputs.labels }}
