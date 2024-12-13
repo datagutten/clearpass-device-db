@@ -159,7 +159,7 @@ AZURE_AUTH = {
     "SCOPES": ["User.Read"],
     "AUTHORITY": "https://login.microsoftonline.com/common",
     "PUBLIC_URLS": ["index"],  # Optional, public views accessible by non-authenticated users
-    "USERNAME_ATTRIBUTE": "mail",   # The AAD attribute or ID token claim you want to use as the value for the user model `USERNAME_FIELD`
+    "USERNAME_ATTRIBUTE": "userPrincipalName",   # The AAD attribute or ID token claim you want to use as the value for the user model `USERNAME_FIELD`
     # "EXTRA_FIELDS": [], # Optional, extra AAD user profile attributes you want to make available in the user mapping function
     # "USER_MAPPING_FN": "azure_auth.tests.misc.user_mapping_fn", # Optional, path to the function used to map the AAD to Django attributes
 }
