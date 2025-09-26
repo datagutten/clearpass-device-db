@@ -34,7 +34,9 @@ jobs:
         uses: docker/build-push-action@v6.5.0
         with:
           push: true
-          tags: datagutten/clearpass-device-db:latest
+          tags: |
+            datagutten/clearpass-device-db:latest
+            ghcr.io/datagutten/clearpass-device-db:latest
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Generate artifact attestation
