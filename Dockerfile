@@ -24,7 +24,7 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requir
 #########
 
 # django-macaddress does not support 3.12 or higher
-FROM python:3.11-bookworm
+FROM python:3.11-slim-bookworm
 
 
 WORKDIR /home/app
