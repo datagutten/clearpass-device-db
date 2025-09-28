@@ -29,7 +29,7 @@ DEBUG = bool(os.environ.get("DEBUG", default=0))
 
 # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
-if os.getenv('DOMAIN').find('http') != 0:
+if os.getenv('DOMAIN', '').find('http') != 0:
     base_url = "https://%s" % os.getenv('DOMAIN')
 else:
     base_url = os.getenv('DOMAIN')
