@@ -1,28 +1,26 @@
 services:
   clearpass_devices:
-    build: .
+    image: datagutten/clearpass-device-db:latest
     env_file:
     - ./.env
-    volumes:
-      - static_volume:/home/app/static
     depends_on:
     - db
 
   db:
-    image: postgres:15
+    image: postgres:17
     environment:
       POSTGRES_USER: ${SQL_USER}
+      PGUSER: ${SQL_USER} # Must be set for scripts to work
       POSTGRES_PASSWORD: ${SQL_PASSWORD}
       POSTGRES_DB: ${SQL_DATABASE}
+      PGDATABASE: ${SQL_DATABASE} # Must be set for scripts to work
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     ports:
-    - 5432:5432
+    - "5432:5432"
 
   nginx:
-    build: ./nginx
-    volumes:
-    - static_volume:/home/app/static
+    image: datagutten/clearpass-device-db-nginx:latest
 
     ports:
       - ${WEB_PORT:-80}:80
