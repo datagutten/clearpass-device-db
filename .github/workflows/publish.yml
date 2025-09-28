@@ -36,7 +36,7 @@ jobs:
         with:
           images: datagutten/clearpass-device-db
 
-      - name: Build and push Docker image
+      - name: Build and push backend Docker image
         id: push
         uses: docker/build-push-action@v6.5.0
         with:
@@ -44,6 +44,17 @@ jobs:
           tags: |
             datagutten/clearpass-device-db:latest
             ghcr.io/datagutten/clearpass-device-db:latest
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Build and push web Docker image
+        id: push
+        uses: docker/build-push-action@v6.5.0
+        with:
+          push: true
+          context: nginx
+          tags: |
+            datagutten/clearpass-device-db-nginx:latest
+            ghcr.io/datagutten/clearpass-device-db-nginx:latest
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Generate artifact attestation
