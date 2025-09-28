@@ -46,8 +46,16 @@ jobs:
             ghcr.io/datagutten/clearpass-device-db:latest
           labels: ${{ steps.meta.outputs.labels }}
 
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-name: index.docker.io/datagutten/clearpass-device-db
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
+
+
       - name: Build and push web Docker image
-        id: push
+        id: push_nginx
         uses: docker/build-push-action@v6.5.0
         with:
           push: true
@@ -60,6 +68,6 @@ jobs:
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
         with:
-          subject-name: index.docker.io/datagutten/clearpass-device-db
-          subject-digest: ${{ steps.push.outputs.digest }}
+          subject-name: index.docker.io/datagutten/clearpass-device-db-nginx
+          subject-digest: ${{ steps.push_nginx.outputs.digest }}
           push-to-registry: true
