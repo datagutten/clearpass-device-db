@@ -11,5 +11,6 @@ class RoleAdmin(admin.ModelAdmin):
 # Register your models here.
 @admin.register(models.Device)
 class DeviceAdmin(admin.ModelAdmin):
-    list_display = ['mac', 'added_by', 'role', 'description', 'expiry', 'enabled']
-    list_filter = ['enabled', 'role']
+    list_display = ['mac', 'added_by', 'added', 'role', 'description', 'expiry', 'enabled']
+    list_filter = ['enabled', 'role', 'added_by']
+    readonly_fields = ['added']
