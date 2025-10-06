@@ -10,6 +10,9 @@
             <th>Rolle</th>
             <th>Aktiv</th>
             <th>Tilfeldig MAC</th>
+            {% if show_all %}
+                <th>Lagt til av</th>
+            {% endif %}
         </tr>
         </thead>
         <tbody>
@@ -33,6 +36,9 @@
                     <span class="text-success">Nei</span>
                 {% endif %}
                 </td>
+                {% if show_all %}
+                    <td>{{ device.added_by.get_full_name }}</td>
+                {% endif %}
             </tr>
         {% endfor %}
 

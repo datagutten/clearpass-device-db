@@ -34,10 +34,12 @@ def device_form(request, mac=None):
 @azure_auth_required
 def device_list(request):
     devices = models.Device.objects.filter(added_by=request.user.id)
-    return render(request, 'device_selfservice/device_list.html', {'devices': devices, 'title': _('Mine enheter')})
+    return render(request, 'device_selfservice/device_list.html',
+                  {'devices': devices, 'title': _('Mine enheter'), 'show_all': False})
 
 
 @permission_required("devices.view_device")
 def device_list_all(request):
     devices = models.Device.objects.all()
-    return render(request, 'device_selfservice/device_list.html', {'devices': devices, 'title': _('Alle enheter')})
+    return render(request, 'device_selfservice/device_list.html',
+                  {'devices': devices, 'title': _('Alle enheter'), 'show_all': True})
