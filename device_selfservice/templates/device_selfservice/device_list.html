@@ -37,7 +37,7 @@
                 {% endif %}
                 </td>
                 {% if show_all %}
-                    <td>{{ device.added_by.get_full_name }}</td>
+                    <td>{{ device.user_display }}</td>
                 {% endif %}
             </tr>
         {% endfor %}

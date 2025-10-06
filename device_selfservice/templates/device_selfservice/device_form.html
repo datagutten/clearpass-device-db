@@ -6,14 +6,16 @@
     {% bootstrap_messages %}
 
     <table class="table">
-        <tr>
-            <th>Lagt til av</th>
-            <td>{{ form.instance.added_by.get_full_name }} ({{ form.instance.added_by.email }})</td>
-        </tr>
-        <tr>
-            <th>Lagt til</th>
-            <td>{{ form.instance.added }}</td>
-        </tr>
+        {% if form.instance.id %}
+            <tr>
+                <th>Lagt til av</th>
+                <td>{{ form.instance.user_display }}</td>
+            </tr>
+            <tr>
+                <th>Lagt til</th>
+                <td>{{ form.instance.added }}</td>
+            </tr>
+        {% endif %}
     </table>
 
     {# Display a form #}

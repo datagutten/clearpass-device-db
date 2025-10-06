@@ -26,3 +26,9 @@ class Device(models.Model):
 
     def is_random(self):
         return str(self.mac)[1] in ['2', '6', 'a', 'e']
+
+    def user_display(self):
+        if self.added_by.get_full_name():
+            return '%s (%s)' % (self.added_by.get_full_name(), self.added_by.email or self.added_by.username)
+        else:
+            return self.added_by.email or self.added_by.username
