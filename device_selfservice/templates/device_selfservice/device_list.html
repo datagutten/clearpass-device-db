@@ -18,11 +18,7 @@
         <tbody>
         {% for device in devices %}
             <tr>
-                {% if perms.devices.change_device %}
-                    <td><a href="{% url 'device_change' mac=device.mac %}">{{ device.mac }}</a></td>
-                {% else %}
-                    <td>{{ device.mac }}</td>
-                {% endif %}
+                <td><a href="{% url 'device_change' mac=device.mac %}">{{ device.mac }}</a></td>
                 <td>{{ device.description }}</td>
                 <td>{{ device.role }}</td>
                 <td>{% if device.enabled %}
